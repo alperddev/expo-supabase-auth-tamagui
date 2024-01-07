@@ -1,7 +1,7 @@
-import { useLocalSearchParams } from 'expo-router';
-import { YStack } from 'tamagui';
+import { useLocalSearchParams } from "expo-router";
+import { YStack } from "tamagui";
 
-import { Container, Main, Subtitle, Title } from '../tamagui.config';
+import { Container, Main, Subtitle, Title } from "../../tamagui.config";
 
 export default function Details() {
   const { name } = useLocalSearchParams();

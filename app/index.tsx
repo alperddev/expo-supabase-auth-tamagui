@@ -1,22 +1,22 @@
-import { Link } from 'expo-router';
-import { YStack } from 'tamagui';
+import { router } from "expo-router";
+import { useEffect } from "react";
 
-import { Container, Main, Title, Subtitle, Button, ButtonText } from '../tamagui.config';
+import { supabase } from "../utils/supabase";
 
-export default function Page() {
-  return (
-    <Container>
-      <Main>
-        <YStack>
-          <Title>Hello World</Title>
-          <Subtitle>This is the first page of your app.</Subtitle>
-        </YStack>
-        <Link href={{ pathname: '/details', params: { name: 'Dan' } }} asChild>
-          <Button>
-            <ButtonText>Show Details</ButtonText>
-          </Button>
-        </Link>
-      </Main>
-    </Container>
-  );
+export default function App() {
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.replace("/(app)");
+      } else {
+      }
+    });
+    supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        router.replace("/(app)");
+      } else {
+        router.replace("/(auth)");
+      }
+    });
+  }, []);
 }
